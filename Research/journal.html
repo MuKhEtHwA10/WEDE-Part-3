@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Kaya Home & Living · Journal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="external.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #f9f6f1; font-family: 'Inter', sans-serif; color: #2b2b2b; padding: 1.5rem; line-height: 1.5; }
+        .container { max-width: 1300px; margin: 0 auto; }
+
+        .nav-bar {
+            display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+            background: white; border-radius: 60px; padding: 0.6rem 1.8rem; margin-bottom: 2rem;
+            border: 1px solid #efe6db;
+        }
+        .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; }
+        .nav-logo i { color: #c1663d; margin-right: 6px; }
+        .nav-links { display: flex; gap: 1.2rem; font-weight: 500; font-size: 0.9rem; }
+        .nav-links a { text-decoration: none; color: #2b2b2b; padding: 0.2rem 0; border-bottom: 2px solid transparent; }
+        .nav-links a.active { border-bottom-color: #c1663d; }
+        .nav-links a:hover { border-bottom-color: #c1663d; }
+        .nav-icons { display: flex; gap: 1rem; font-size: 1.1rem; }
+        .badge-cart { background: #c1663d; color: white; font-size: 0.6rem; border-radius: 40px; padding: 0.1rem 0.5rem; margin-left: -0.2rem; vertical-align: top; }
+
+        .breadcrumb { font-size: 0.85rem; color: #5a4d44; margin-bottom: 1.5rem; }
+        .breadcrumb a { color: #5a4d44; text-decoration: none; }
+        .breadcrumb a:hover { color: #c1663d; }
+        .breadcrumb span { margin: 0 0.4rem; }
+
+        .page-header { margin-bottom: 2rem; }
+        .page-header h1 { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700; }
+        .page-header p { color: #5a4d44; }
+
+        .journal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; }
+        .journal-card { background: white; border-radius: 32px; padding: 1.5rem; border: 1px solid #efe6db; transition: 0.15s; }
+        .journal-card:hover { border-color: #c1663d60; }
+        .journal-card .img { background: #f0e7df; border-radius: 24px; height: 180px; display: flex; align-items: center; justify-content: center; color: #a08472; font-size: 3rem; margin-bottom: 1rem; }
+        .journal-card .category { display: inline-block; background: #c1663d10; color: #c1663d; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.04em; padding: 0.1rem 1rem; border-radius: 40px; border: 1px solid #c1663d20; margin-bottom: 0.5rem; }
+        .journal-card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.4rem; }
+        .journal-card .excerpt { color: #5a4d44; font-size: 0.9rem; line-height: 1.6; }
+        .journal-card .meta { display: flex; justify-content: space-between; margin-top: 0.8rem; font-size: 0.8rem; color: #a08472; border-top: 1px solid #f0e7df; padding-top: 0.8rem; }
+        .journal-card .meta i { margin-right: 4px; }
+        .journal-card .read-more { color: #c1663d; font-weight: 600; font-size: 0.9rem; text-decoration: none; }
+
+        .sidebar-section { margin-top: 2.5rem; display: flex; flex-wrap: wrap; gap: 2rem; }
+        .sidebar-section .featured { flex: 2 1 300px; }
+        .sidebar-section .featured h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 600; margin-bottom: 1rem; border-bottom: 3px solid #c1663d; padding-bottom: 0.3rem; display: inline-block; }
+        .sidebar-section .newsletter-box { flex: 1 1 250px; background: #fcf8f3; border-radius: 28px; padding: 1.8rem; border: 1px solid #e8ddd2; height: fit-content; }
+        .sidebar-section .newsletter-box h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 600; }
+        .sidebar-section .newsletter-box p { color: #5a4d44; margin: 0.5rem 0; }
+        .sidebar-section .newsletter-box input { width: 100%; padding: 0.6rem 1rem; border-radius: 40px; border: 1px solid #dacfc4; background: white; font-family: 'Inter', sans-serif; margin-bottom: 0.6rem; }
+        .sidebar-section .newsletter-box button { background: #c1663d; border: none; color: white; padding: 0.6rem; border-radius: 40px; font-weight: 600; width: 100%; cursor: default; }
+
+        .footer { margin-top: 3rem; padding-top: 1.8rem; border-top: 1px solid #e2d6cb; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #5a4d44; }
+        .footer .social i { font-size: 1.2rem; margin-left: 1rem; color: #5a4d44; cursor: default; }
+        .footer .social i:hover { color: #c1663d; }
+
+        @media (max-width: 700px) { .nav-links { display: none; } .journal-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+<div class="container">
+   <div class="nav-bar">
+    <div class="nav-logo"><i class="fas fa-leaf"></i> Kaya</div>
+    
+    <!-- Hamburger Button for Mobile -->
+    <div class="hamburger" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <div class="nav-links" id="navLinks">
+        <a href="index.html" class="active">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="about.html">About</a>
+        <a href="visit.html">Visit</a>
+        <a href="journal.html">Journal</a>
+        <a href="track.html">Track</a>
+         <a href="enquiry.html">Enquiry</a>
+    </div>
+    <div class="nav-icons">
+        <i class="fas fa-search" style="cursor:pointer;"></i>
+        <i class="fas fa-user" style="cursor:pointer;"></i>
+        <a href="cart.html"><i class="fas fa-shopping-bag"></i></a> <span class="badge-cart">0</span>
+    </div>
+</div>
+
+    <div class="breadcrumb">
+        <a href="index.html">Home</a> <span>/</span>
+        <span style="color: #2b2b2b; font-weight: 500;">Journal</span>
+    </div>
+
+    <div class="page-header">
+        <h1>Journal</h1>
+        <p>Inspiration, stories, and tips for your home.</p>
+    </div>
+
+    <div class="journal-grid">
+        <div class="journal-card">
+            <div class="img"><i class="fas fa-plant"></i></div>
+            <span class="category">Styling</span>
+            <h3>Styling with terracotta</h3>
+            <p class="excerpt">Discover how to bring warmth and texture to your space with terracotta accents — from planters to tableware.</p>
+            <div class="meta"><span><i class="far fa-calendar"></i> 12 Aug 2026</span><span><i class="far fa-clock"></i> 3 min read</span></div>
+            <a href="#" class="read-more">Read more →</a>
+        </div>
+
+        <div class="journal-card">
+            <div class="img"><i class="fas fa-hands"></i></div>
+            <span class="category">Artisans</span>
+            <h3>Meet the weavers of Ndlambe</h3>
+            <p class="excerpt">We visited the Eastern Cape to meet the women behind our handwoven rugs — and learned about their craft and community.</p>
+            <div class="meta"><span><i class="far fa-calendar"></i> 5 Aug 2026</span><span><i class="far fa-clock"></i> 5 min read</span></div>
+            <a href="#" class="read-more">Read more →</a>
+        </div>
+
+        <div class="journal-card">
+            <div class="img"><i class="fas fa-mug-saucer"></i></div>
+            <span class="category">Entertaining</span>
+            <h3>Seasonal table settings</h3>
+            <p class="excerpt">Create a memorable tablescape with locally made ceramics, linens, and a touch of nature — perfect for spring gatherings.</p>
+            <div class="meta"><span><i class="far fa-calendar"></i> 28 Jul 2026</span><span><i class="far fa-clock"></i> 4 min read</span></div>
+            <a href="#" class="read-more">Read more →</a>
+        </div>
+
+        <div class="journal-card">
+            <div class="img"><i class="fas fa-seedling"></i></div>
+            <span class="category">Sustainability</span>
+            <h3>Why we choose natural materials</h3>
+            <p class="excerpt">From wool to clay, we explore the beauty and durability of natural materials — and why they're better for your home and the planet.</p>
+            <div class="meta"><span><i class="far fa-calendar"></i> 20 Jul 2026</span><span><i class="far fa-clock"></i> 6 min read</span></div>
+            <a href="#" class="read-more">Read more →</a>
+        </div>
+
+        <div class="journal-card">
+            <div class="img"><i class="fas fa-paint-brush"></i></div>
+            <span class="category">Design</span>
+            <h3>The art of layering textiles</h3>
+            <p class="excerpt">Learn how to mix patterns, textures, and colours to create a cosy, collected look in any room of your home.</p>
+            <div class="meta"><span><i class="far fa-calendar"></i> 14 Jul 2026</span><span><i class="far fa-clock"></i> 3 min read</span></div>
+            <a href="#" class="read-more">Read more →</a>
+        </div>
+
+        <div class="journal-card">
+            <div class="img"><i class="fas fa-store"></i></div>
+            <span class="category">Behind the scenes</span>
+            <h3>A day at the Kaya store</h3>
+            <p class="excerpt">Step inside our Johannesburg storefront — meet the team, see new arrivals, and get a feel for the Kaya experience.</p>
+            <div class="meta"><span><i class="far fa-calendar"></i> 7 Jul 2026</span><span><i class="far fa-clock"></i> 4 min read</span></div>
+            <a href="#" class="read-more">Read more →</a>
+        </div>
+    </div>
+
+    <div class="sidebar-section">
+        <div class="featured">
+            <h2>Featured post</h2>
+            <div style="background:#fcf8f3; border-radius:28px; padding:1.5rem; border:1px solid #e8ddd2; display:flex; flex-wrap:wrap; gap:1.5rem; align-items:center;">
+                <div style="background:#e8ddd2; border-radius:20px; width:120px; height:120px; display:flex; align-items:center; justify-content:center; color:#a08472; font-size:2.5rem;"><i class="fas fa-hands"></i></div>
+                <div style="flex:1;">
+                    <span style="background:#c1663d10; color:#c1663d; font-size:0.65rem; font-weight:600; padding:0.1rem 1rem; border-radius:40px; border:1px solid #c1663d20;">Artisans</span>
+                    <h4 style="font-family:'Playfair Display',serif; font-size:1.2rem; margin:0.3rem 0;">Meet the weavers of Ndlambe</h4>
+                    <p style="font-size:0.9rem; color:#5a4d44;">Discover the story behind our handwoven rugs.</p>
+                    <a href="#" class="read-more">Read more →</a>
+                </div>
+            </div>
+        </div>
+        <div class="newsletter-box">
+            <h3><i class="fas fa-envelope" style="color:#c1663d;"></i> Subscribe</h3>
+            <p>Get new journal posts delivered straight to your inbox.</p>
+            <input type="email" placeholder="Your email address" value="hello@kaya.co.za">
+            <button>Subscribe</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div><i class="fas fa-leaf" style="color:#c1663d;"></i> Kaya Home &amp; Living · 44 Bree St, Johannesburg</div>
+        <div class="social">
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-pinterest"></i>
+            <i class="fab fa-facebook"></i>
+        </div>
+        <div><span style="margin-right:1rem;">NPO: 2024/123456/08</span> © 2026</div>
+    </div>
+</div>
+<script>
+    function toggleMenu() {
+        const nav = document.getElementById('navLinks');
+        nav.classList.toggle('active');
+    }
+
+    // Rest of your existing JS (addToCart, showToast, etc.)
+</script>
+</body>
+</html>

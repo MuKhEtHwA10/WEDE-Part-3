@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Kaya Home & Living · Shop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="external.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #f9f6f1; font-family: 'Inter', sans-serif; color: #2b2b2b; padding: 1.5rem; line-height: 1.5; }
+        .container { max-width: 1300px; margin: 0 auto; }
+
+        .nav-bar {
+            display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+            background: white; border-radius: 60px; padding: 0.6rem 1.8rem; margin-bottom: 2rem;
+            border: 1px solid #efe6db;
+        }
+        .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; }
+        .nav-logo i { color: #c1663d; margin-right: 6px; }
+        .nav-links { display: flex; gap: 1.2rem; font-weight: 500; font-size: 0.9rem; flex-wrap: wrap; }
+        .nav-links a { text-decoration: none; color: #2b2b2b; padding: 0.2rem 0; border-bottom: 2px solid transparent; transition: 0.15s; }
+        .nav-links a.active { border-bottom-color: #c1663d; }
+        .nav-links a:hover { border-bottom-color: #c1663d; }
+        .nav-icons { display: flex; gap: 1rem; font-size: 1.1rem; align-items: center; }
+        .nav-icons a { color: #2b2b2b; text-decoration: none; }
+        .badge-cart { background: #c1663d; color: white; font-size: 0.6rem; border-radius: 40px; padding: 0.1rem 0.5rem; margin-left: -0.2rem; vertical-align: top; }
+
+        .toast-message {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: #2b2b2b; color: white; padding: 1rem 2rem;
+            border-radius: 60px; font-weight: 500; z-index: 1000;
+            opacity: 0; transition: opacity 0.3s ease; pointer-events: none;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+        .toast-message.show { opacity: 1; }
+
+        .breadcrumb { font-size: 0.85rem; color: #5a4d44; margin-bottom: 1.5rem; }
+        .breadcrumb a { color: #5a4d44; text-decoration: none; }
+        .breadcrumb a:hover { color: #c1663d; }
+        .breadcrumb span { margin: 0 0.4rem; }
+
+        .page-header { margin-bottom: 1.8rem; }
+        .page-header h1 { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 600; }
+        .page-header p { color: #5a4d44; margin-top: 0.2rem; }
+
+        .filter-bar {
+            display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem 1.8rem;
+            background: #fcf8f3; padding: 0.8rem 1.8rem; border-radius: 60px;
+            margin-bottom: 2rem; border: 1px solid #e8ddd2;
+        }
+        .filter-bar .filter-group { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+        .filter-bar .filter-group span { font-size: 0.85rem; font-weight: 500; color: #5a4d44; }
+        .filter-bar .filter-group .pill {
+            background: white; padding: 0.2rem 1.2rem; border-radius: 40px; font-size: 0.8rem; font-weight: 500;
+            border: 1px solid #dacfc4; cursor: pointer; transition: 0.15s;
+        }
+        .filter-bar .filter-group .pill.active { background: #c1663d; color: white; border-color: #c1663d; }
+        .filter-bar .filter-group .pill:hover:not(.active) { border-color: #c1663d60; background: #f5ede6; }
+        .filter-bar .filter-right { margin-left: auto; display: flex; align-items: center; gap: 1rem; font-size: 0.85rem; color: #5a4d44; }
+        .filter-bar .filter-right i { color: #c1663d; margin-right: 4px; }
+        .filter-bar .filter-right span { cursor: pointer; }
+
+        .shop-layout { display: flex; gap: 2rem; margin-top: 0.5rem; }
+
+        .shop-sidebar { flex: 0 0 220px; background: #fcf8f3; border-radius: 28px; padding: 1.5rem 1.2rem; border: 1px solid #e8ddd2; height: fit-content; }
+        .shop-sidebar h4 { font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.04em; color: #5a4d44; margin: 1rem 0 0.6rem; border-bottom: 1px solid #e2d6cb; padding-bottom: 0.3rem; }
+        .shop-sidebar h4:first-of-type { margin-top: 0; }
+        .shop-sidebar ul { list-style: none; font-size: 0.9rem; }
+        .shop-sidebar ul li { padding: 0.3rem 0; display: flex; justify-content: space-between; cursor: pointer; transition: 0.15s; }
+        .shop-sidebar ul li:hover { color: #c1663d; }
+        .shop-sidebar ul li .count { color: #a08472; font-size: 0.75rem; }
+
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.8rem; }
+        .product-card { background: white; border-radius: 24px; padding: 0.8rem; border: 1px solid #eee6dd; text-align: center; transition: 0.2s; cursor: default; }
+        .product-card:hover { border-color: #c1663d60; box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-4px); }
+        .product-card .img { background: #f0e7df; border-radius: 18px; height: 160px; display: flex; align-items: center; justify-content: center; color: #a08472; font-size: 2.6rem; margin-bottom: 0.6rem; overflow: hidden; }
+        .product-card .img img { width: 100%; height: 100%; object-fit: cover; border-radius: 18px; }
+        .product-card h4 { font-size: 1rem; font-weight: 600; }
+        .product-card .price { font-weight: 700; color: #c1663d; font-size: 1.1rem; margin-top: 0.2rem; }
+        .product-card .stock-badge { font-size: 0.7rem; font-weight: 500; color: #1f5a2a; background: #e5f0e5; padding: 0.1rem 0.8rem; border-radius: 40px; display: inline-block; margin-top: 0.2rem; }
+        .product-card .btn-quick { background: #c1663d10; border: 1px solid #c1663d30; border-radius: 40px; padding: 0.2rem 1.4rem; font-size: 0.75rem; font-weight: 600; color: #c1663d; margin-top: 0.6rem; display: inline-block; cursor: pointer; transition: 0.15s; }
+        .product-card .btn-quick:hover { background: #c1663d20; transform: scale(1.05); }
+
+        .pagination { display: flex; justify-content: center; gap: 0.4rem; margin: 2.5rem 0 0.5rem; }
+        .pagination span { background: white; border: 1px solid #e2d6cb; padding: 0.3rem 1rem; border-radius: 40px; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: 0.15s; }
+        .pagination span.active { background: #c1663d; color: white; border-color: #c1663d; }
+        .pagination span:hover:not(.active) { border-color: #c1663d60; background: #f5ede6; }
+
+        .footer { margin-top: 3rem; padding-top: 1.8rem; border-top: 1px solid #e2d6cb; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #5a4d44; }
+        .footer .social i { font-size: 1.2rem; margin-left: 1rem; color: #5a4d44; cursor: pointer; transition: 0.15s; }
+        .footer .social i:hover { color: #c1663d; transform: scale(1.2); }
+
+        @media (max-width: 820px) { .nav-links { display: none; } .shop-layout { flex-direction: column; } .shop-sidebar { flex: 1; display: flex; flex-wrap: wrap; gap: 1.5rem; padding: 1.2rem; } .shop-sidebar > div { flex: 1 1 140px; } .filter-bar { flex-direction: column; align-items: stretch; } .filter-bar .filter-right { margin-left: 0; } }
+        @media (max-width: 500px) { .card-grid { grid-template-columns: 1fr 1fr; gap: 1rem; } .product-card .img { height: 120px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div id="toast" class="toast-message"></div>
+
+   <div class="nav-bar">
+    <div class="nav-logo"><i class="fas fa-leaf"></i> Kaya</div>
+    
+    <!-- Hamburger Button for Mobile -->
+    <div class="hamburger" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <div class="nav-links" id="navLinks">
+        <a href="index.html" class="active">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="about.html">About</a>
+        <a href="visit.html">Visit</a>
+        <a href="journal.html">Journal</a>
+        <a href="track.html">Track</a>
+         <a href="enquiry.html">Enquiry</a>
+    </div>
+    <div class="nav-icons">
+        <i class="fas fa-search" style="cursor:pointer;"></i>
+        <i class="fas fa-user" style="cursor:pointer;"></i>
+        <a href="cart.html"><i class="fas fa-shopping-bag"></i></a> <span class="badge-cart">0</span>
+    </div>
+</div>
+
+    <div class="breadcrumb">
+        <a href="index.html">Home</a> <span>/</span>
+        <span style="color: #2b2b2b; font-weight: 500;">Shop</span>
+    </div>
+
+    <div class="page-header">
+        <h1>Shop</h1>
+        <p>Locally made homeware, textiles &amp; decor — each piece with a story.</p>
+    </div>
+
+    <div class="filter-bar">
+        <div class="filter-group">
+            <span><i class="fas fa-filter"></i> Category</span>
+            <span class="pill active" onclick="filterProducts('all', this)">All</span>
+            <span class="pill" onclick="filterProducts('Textiles', this)">Textiles</span>
+            <span class="pill" onclick="filterProducts('Lighting', this)">Lighting</span>
+            <span class="pill" onclick="filterProducts('Tableware', this)">Tableware</span>
+            <span class="pill" onclick="filterProducts('Decor', this)">Decor</span>
+        </div>
+        <div class="filter-right">
+            <span onclick="resetFilters()"><i class="fas fa-undo-alt"></i> Reset</span>
+        </div>
+    </div>
+
+    <div class="shop-layout">
+        <aside class="shop-sidebar">
+            <div>
+                <h4>Categories</h4>
+                <ul>
+                    <li onclick="filterProducts('all')">All <span class="count">(12)</span></li>
+                    <li onclick="filterProducts('Textiles')">Textiles <span class="count">(4)</span></li>
+                    <li onclick="filterProducts('Lighting')">Lighting <span class="count">(2)</span></li>
+                    <li onclick="filterProducts('Tableware')">Tableware <span class="count">(2)</span></li>
+                    <li onclick="filterProducts('Decor')">Decor <span class="count">(4)</span></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Price range</h4>
+                <div style="display:flex; gap:0.5rem; align-items:center; font-size:0.85rem; margin-top:0.3rem;">
+                    <span>R</span><input type="number" id="priceMin" value="0" style="width:60px; padding:0.2rem 0.4rem; border-radius:20px; border:1px solid #dacfc4; background:white; font-family:inherit; font-size:0.8rem;">
+                    <span>—</span>
+                    <span>R</span><input type="number" id="priceMax" value="2500" style="width:60px; padding:0.2rem 0.4rem; border-radius:20px; border:1px solid #dacfc4; background:white; font-family:inherit; font-size:0.8rem;">
+                </div>
+                <div style="margin-top:0.5rem; color:#c1663d; cursor:pointer; font-size:0.85rem;" onclick="filterByPrice()">Apply</div>
+            </div>
+            <div>
+                <h4>Material</h4>
+                <ul>
+                    <li>Wool <span class="count">(3)</span></li>
+                    <li>Clay <span class="count">(5)</span></li>
+                    <li>Palm <span class="count">(4)</span></li>
+                    <li>Cotton <span class="count">(6)</span></li>
+                </ul>
+            </div>
+        </aside>
+
+        <div class="product-grid">
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.85rem; color:#5a4d44; margin-bottom:1.2rem; flex-wrap:wrap; gap:0.5rem;">
+                <span id="productCount">Showing 1–12 of 12 products</span>
+                <select id="sortSelect" onchange="sortProducts()" style="background:white; border:1px solid #dacfc4; border-radius:40px; padding:0.3rem 1.2rem; font-family:'Inter',sans-serif; font-size:0.85rem; cursor:pointer;">
+                    <option value="featured">Sort by: Featured</option>
+                    <option value="low">Price: low to high</option>
+                    <option value="high">Price: high to low</option>
+                </select>
+            </div>
+
+            <div class="card-grid" id="shopGrid">
+                <div class="product-card" data-category="Textiles" data-price="1250">
+                    <div class="img"><img src="Images/rug.jpg.avif" alt="Rug"></div>
+                    <h4>Handwoven rug</h4>
+                    <div class="price">R1,250</div>
+                    <span class="stock-badge"><i class="fas fa-check-circle"></i> In stock</span>
+                    <button class="btn-quick" onclick="addToCart('Handwoven rug', 1250)">Quick add</button>
+                </div>
+                <div class="product-card" data-category="Lighting" data-price="890">
+                    <div class="img"><img src="Images/Terracotta lamp.jpg" alt="Lamp"></div>
+                    <h4>Terracotta lamp</h4>
+                    <div class="price">R890</div>
+                    <span class="stock-badge"><i class="fas fa-check-circle"></i> In stock</span>
+                    <button class="btn-quick" onclick="addToCart('Terracotta lamp', 890)">Quick add</button>
+                </div>
+                <div class="product-card" data-category="Baskets" data-price="540">
+                    <div class="img"><img src="Images/palm basket.jpg" alt="Basket"></div>
+                    <h4>Palm basket</h4>
+                    <div class="price">R540</div>
+                    <span class="stock-badge" style="background:#f0e7df; color:#a08472;"><i class="fas fa-clock"></i> Backorder</span>
+                    <button class="btn-quick" onclick="addToCart('Palm basket', 540)">Quick add</button>
+                </div>
+                <div class="product-card" data-category="Tableware" data-price="320">
+                    <div class="img"><img src="Images/clay mug set.jpg" alt="Mugs"></div>
+                    <h4>Clay mug set</h4>
+                    <div class="price">R990</div>
+                    <span class="stock-badge"><i class="fas fa-check-circle"></i> In stock</span>
+                    <button class="btn-quick" onclick="addToCart('Clay mug set', 320)">Quick add</button>
+                </div>
+                <div class="product-card" data-category="Planters" data-price="410">
+                    <div class="img"><img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=300&h=200&fit=crop" alt="Planter"></div>
+                    <h4>Planter pot</h4>
+                    <div class="price">R410</div>
+                    <span class="stock-badge"><i class="fas fa-check-circle"></i> In stock</span>
+                    <button class="btn-quick" onclick="addToCart('Planter pot', 410)">Quick add</button>
+                </div>
+                <div class="product-card" data-category="Cushions" data-price="670">
+                    <div class="img"><img src="Images/Throw cushion.jpg" alt="Cushion"></div>
+                    <h4>Throw cushion</h4>
+                    <div class="price">R670</div>
+                    <span class="stock-badge"><i class="fas fa-check-circle"></i> In stock</span>
+                    <button class="btn-quick" onclick="addToCart('Throw cushion', 670)">Quick add</button>
+                </div>
+                <div class="product-card" data-category="Decor" data-price="780">
+                    <div class="img"><img src="Images/Ceramic vase.jpg" alt="Vase"></div>
+                    <h4>Ceramic vase</h4>
+                    <div class="price">R780</div>
+                    <span class="stock-badge"><i class="fas fa-check-circle"></i> In stock</span>
+                    <button class="btn-quick" onclick="addToCart('Ceramic vase', 780)">Quick add</button>
+                </div>
+                <div class="product-card" data-category="Decor" data-price="520">
+                    <div class="img"><img src="Images/Wooden serving board.jpg" alt="Board"></div>
+                    <h4>Wooden serving board</h4>
+                    <div class="price">R520</div>
+                    <span class="stock-badge"><i class="fas fa-check-circle"></i> In stock</span>
+                    <button class="btn-quick" onclick="addToCart('Wooden serving board', 520)">Quick add</button>
+                </div>
+                <div class="product-card" data-category="Textiles" data-price="940">
+                    <div class="img"><img src="Images/Cotton throw.jpg" alt="Throw"></div>
+                    <h4>Cotton throw</h4>
+                    <div class="price">R940</div>
+                    <span class="stock-badge" style="background:#f0e7df; color:#a08472;"><i class="fas fa-clock"></i> Backorder</span>
+                    <button class="btn-quick" onclick="addToCart('Cotton throw', 940)">Quick add</button>
+                </div>
+                <div class="product-card" data-category="Lighting" data-price="1100">
+                    <div class="img"><img src="Images/Bamboo pendant.jpg" alt="Pendant"></div>
+                    <h4>Bamboo pendant</h4>
+                    <div class="price">R1,100</div>
+                    <span class="stock-badge"><i class="fas fa-check-circle"></i> In stock</span>
+                    <button class="btn-quick" onclick="addToCart('Bamboo pendant', 1100)">Quick add</button>
+                </div>
+                <div class="product-card" data-category="Tableware" data-price="280">
+                    <div class="img"><img src="Images/Espresso cup set.jpg" alt="Cups"></div>
+                    <h4>Espresso cup set</h4>
+                    <div class="price">R2800</div>
+                    <span class="stock-badge"><i class="fas fa-check-circle"></i> In stock</span>
+                    <button class="btn-quick" onclick="addToCart('Espresso cup set', 280)">Quick add</button>
+                </div>
+                <div class="product-card" data-category="Baskets" data-price="890">
+                    <div class="img"><img src="Images/Storage basket set.jpg" alt="Basket set"></div>
+                    <h4>Storage basket set</h4>
+                    <div class="price">R890</div>
+                    <span class="stock-badge"><i class="fas fa-check-circle"></i> In stock</span>
+                    <button class="btn-quick" onclick="addToCart('Storage basket set', 890)">Quick add</button>
+                </div>
+            </div>
+
+            <div class="pagination">
+                <span onclick="changePage('prev')"><i class="fas fa-chevron-left"></i></span>
+                <span class="active" onclick="changePage(1)">1</span>
+                <span onclick="changePage(2)">2</span>
+                <span onclick="changePage(3)">3</span>
+                <span onclick="changePage('next')"><i class="fas fa-chevron-right"></i></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div><i class="fas fa-leaf" style="color:#c1663d;"></i> Kaya Home &amp; Living · 44 Bree St, Johannesburg</div>
+        <div class="social">
+            <i class="fab fa-instagram" onclick="showToast('Follow us on Instagram!')"></i>
+            <i class="fab fa-pinterest" onclick="showToast('Follow us on Pinterest!')"></i>
+            <i class="fab fa-facebook" onclick="showToast('Follow us on Facebook!')"></i>
+        </div>
+        <div><span style="margin-right:1rem;">NPO: 2024/123456/08</span> © 2026</div>
+    </div>
+</div>
+
+<script>
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    function addToCart(product, price) {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const existing = cart.find(item => item.product === product);
+
+        const matchingCard = Array.from(document.querySelectorAll('.product-card')).find(card => {
+            const name = card.querySelector('h4')?.textContent.trim().toLowerCase();
+            return name === product.toLowerCase();
+        });
+        const image = matchingCard?.querySelector('img')?.src || '';
+
+        if (existing) {
+            existing.quantity += 1;
+            if (!existing.image && image) existing.image = image;
+        } else {
+            cart.push({ product, price, quantity: 1, image });
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartBadge();
+        showToast(`✓ ${product} added to cart (R${price})`);
+    }
+
+    function updateCartBadge() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+        document.querySelectorAll('.badge-cart').forEach(b => b.textContent = total);
+    }
+
+    function filterProducts(category, el) {
+        const cards = document.querySelectorAll('#shopGrid .product-card');
+        let visible = 0;
+        cards.forEach(card => {
+            if (category === 'all' || card.dataset.category === category) {
+                card.style.display = 'block';
+                visible++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+        document.getElementById('productCount').textContent = `Showing ${visible} of ${cards.length} products`;
+        // Update active pill
+        document.querySelectorAll('.filter-group .pill').forEach(p => p.classList.remove('active'));
+        if (el) el.classList.add('active');
+        showToast(`Showing ${visible} products`);
+    }
+
+    function resetFilters() {
+        document.querySelectorAll('#shopGrid .product-card').forEach(c => c.style.display = 'block');
+        document.querySelectorAll('.filter-group .pill').forEach(p => p.classList.remove('active'));
+        document.querySelector('.filter-group .pill:first-child').classList.add('active');
+        document.getElementById('productCount').textContent = 'Showing 1–12 of 24 products';
+        document.getElementById('priceMin').value = 0;
+        document.getElementById('priceMax').value = 2500;
+        showToast('Filters reset');
+    }
+
+    function filterByPrice() {
+        const min = parseInt(document.getElementById('priceMin').value) || 0;
+        const max = parseInt(document.getElementById('priceMax').value) || 99999;
+        const cards = document.querySelectorAll('#shopGrid .product-card');
+        let visible = 0;
+        cards.forEach(card => {
+            const price = parseInt(card.dataset.price);
+            if (price >= min && price <= max) {
+                card.style.display = 'block';
+                visible++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+        document.getElementById('productCount').textContent = `Showing ${visible} of ${cards.length} products`;
+        showToast(`Showing products between R${min} and R${max}`);
+    }
+
+    function sortProducts() {
+        const sort = document.getElementById('sortSelect').value;
+        const grid = document.getElementById('shopGrid');
+        const cards = Array.from(grid.children);
+        cards.sort((a, b) => {
+            const priceA = parseInt(a.dataset.price);
+            const priceB = parseInt(b.dataset.price);
+            if (sort === 'low') return priceA - priceB;
+            if (sort === 'high') return priceB - priceA;
+            return 0;
+        });
+        cards.forEach(card => grid.appendChild(card));
+        showToast(sort === 'low' ? 'Sorted: low to high' : sort === 'high' ? 'Sorted: high to low' : 'Sorted: featured');
+    }
+
+    function changePage(dir) {
+        showToast(dir === 'next' ? 'Page 2' : dir === 'prev' ? 'Page 1' : `Page ${dir}`);
+    }
+
+    document.addEventListener('DOMContentLoaded', updateCartBadge);
+</script>
+<script>
+    function toggleMenu() {
+        const nav = document.getElementById('navLinks');
+        nav.classList.toggle('active');
+    }
+
+    // Rest of your existing JS (addToCart, showToast, etc.)
+</script>
+</body>
+</html>

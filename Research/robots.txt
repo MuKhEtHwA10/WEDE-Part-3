@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://6ae9114a215eea36d45e956a--startling-kleicha-c743c7.netlify.app/sitemap.xml

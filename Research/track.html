@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Kaya Home & Living · Order Tracking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="external.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #f9f6f1; font-family: 'Inter', sans-serif; color: #2b2b2b; padding: 1.5rem; line-height: 1.5; }
+        .container { max-width: 1300px; margin: 0 auto; }
+
+        .nav-bar {
+            display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+            background: white; border-radius: 60px; padding: 0.6rem 1.8rem; margin-bottom: 2rem;
+            border: 1px solid #efe6db;
+        }
+        .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; }
+        .nav-logo i { color: #c1663d; margin-right: 6px; }
+        .nav-links { display: flex; gap: 1.2rem; font-weight: 500; font-size: 0.9rem; }
+        .nav-links a { text-decoration: none; color: #2b2b2b; padding: 0.2rem 0; border-bottom: 2px solid transparent; }
+        .nav-links a.active { border-bottom-color: #c1663d; }
+        .nav-links a:hover { border-bottom-color: #c1663d; }
+        .nav-icons { display: flex; gap: 1rem; font-size: 1.1rem; }
+        .badge-cart { background: #c1663d; color: white; font-size: 0.6rem; border-radius: 40px; padding: 0.1rem 0.5rem; margin-left: -0.2rem; vertical-align: top; }
+
+        .breadcrumb { font-size: 0.85rem; color: #5a4d44; margin-bottom: 1.5rem; }
+        .breadcrumb a { color: #5a4d44; text-decoration: none; }
+        .breadcrumb a:hover { color: #c1663d; }
+        .breadcrumb span { margin: 0 0.4rem; }
+
+        .page-header { margin-bottom: 2rem; }
+        .page-header h1 { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700; }
+        .page-header p { color: #5a4d44; }
+
+        .track-box { background: #fcf8f3; border-radius: 32px; padding: 2rem; border: 1px solid #e8ddd2; }
+        .track-box p { margin-bottom: 1rem; color: #3d342e; }
+        .track-input { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1rem 0; }
+        .track-input input { flex: 2; padding: 0.7rem 1.2rem; border-radius: 60px; border: 1px solid #dacfc4; background: white; font-family: 'Inter', sans-serif; font-size: 0.95rem; min-width: 160px; }
+        .track-input button { background: #c1663d; border: none; color: white; padding: 0.7rem 2.5rem; border-radius: 60px; font-weight: 600; font-size: 1rem; cursor: default; }
+
+        .order-status { background: white; border-radius: 28px; padding: 1.5rem; border: 1px solid #e8ddd2; margin-top: 1.5rem; }
+        .order-status .status-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .order-status .status-header h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 600; }
+        .order-status .status-header .status-badge { background: #e5f0e5; color: #1f5a2a; padding: 0.2rem 1.2rem; border-radius: 40px; font-weight: 600; font-size: 0.85rem; }
+        .order-status .status-timeline { display: flex; gap: 1.5rem; margin: 1.5rem 0 0.5rem; flex-wrap: wrap; }
+        .order-status .status-timeline .step { display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; }
+        .order-status .status-timeline .step .circle { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #e8ddd2; color: #a08472; }
+        .order-status .status-timeline .step .circle.done { background: #1f5a2a; color: white; }
+        .order-status .status-timeline .step .circle.active { background: #c1663d; color: white; }
+        .order-status .order-details { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #e8ddd2; display: flex; flex-wrap: wrap; gap: 2rem; }
+        .order-status .order-details .detail-item { font-size: 0.9rem; color: #5a4d44; }
+        .order-status .order-details .detail-item strong { color: #2b2b2b; display: block; }
+
+        .account-section { margin-top: 2.5rem; background: white; border-radius: 32px; padding: 2rem; border: 1px solid #efe6db; }
+        .account-section h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 600; margin-bottom: 1.2rem; border-bottom: 3px solid #c1663d; padding-bottom: 0.3rem; display: inline-block; }
+        .account-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
+        .account-card { background: #fcf8f3; border-radius: 24px; padding: 1.2rem; border: 1px solid #e8ddd2; text-align: center; }
+        .account-card i { font-size: 2rem; color: #c1663d; margin-bottom: 0.5rem; display: block; }
+        .account-card h4 { font-weight: 600; }
+        .account-card p { font-size: 0.85rem; color: #5a4d44; margin-top: 0.2rem; }
+
+        .footer { margin-top: 3rem; padding-top: 1.8rem; border-top: 1px solid #e2d6cb; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #5a4d44; }
+        .footer .social i { font-size: 1.2rem; margin-left: 1rem; color: #5a4d44; cursor: default; }
+        .footer .social i:hover { color: #c1663d; }
+
+        @media (max-width: 700px) { .nav-links { display: none; } .order-status .status-timeline { flex-direction: column; gap: 0.8rem; } }
+    </style>
+</head>
+<body>
+<div class="container">
+  <div class="nav-bar">
+    <div class="nav-logo"><i class="fas fa-leaf"></i> Kaya</div>
+    
+    <!-- Hamburger Button for Mobile -->
+    <div class="hamburger" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <div class="nav-links" id="navLinks">
+        <a href="index.html" class="active">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="about.html">About</a>
+        <a href="visit.html">Visit</a>
+        <a href="journal.html">Journal</a>
+        <a href="track.html">Track</a>
+         <a href="enquiry.html">Enquiry</a>
+    </div>
+    <div class="nav-icons">
+        <i class="fas fa-search" style="cursor:pointer;"></i>
+        <i class="fas fa-user" style="cursor:pointer;"></i>
+        <a href="cart.html"><i class="fas fa-shopping-bag"></i></a> <span class="badge-cart">0</span>
+    </div>
+</div>
+
+    <div class="breadcrumb">
+        <a href="index.html">Home</a> <span>/</span>
+        <span style="color: #2b2b2b; font-weight: 500;">Order Tracking</span>
+    </div>
+
+    <div class="page-header">
+        <h1>Track your order</h1>
+        <p>Enter your order number and email to see the latest status.</p>
+    </div>
+
+    <div class="track-box">
+        <p><i class="fas fa-search" style="color:#c1663d;"></i> Enter your order details below:</p>
+        <div class="track-input">
+            <input type="text" placeholder="Order #KAYA-1234" value="KAYA-0872">
+            <input type="email" placeholder="you@example.com" value="customer@kaya.co.za">
+            <button><i class="fas fa-search"></i> Track</button>
+        </div>
+
+        <div class="order-status">
+            <div class="status-header">
+                <h3>Order #KAYA-0872</h3>
+                <span class="status-badge"><i class="fas fa-truck"></i> In transit</span>
+            </div>
+            <div class="status-timeline">
+                <div class="step"><span class="circle done"><i class="fas fa-check"></i></span> Confirmed</div>
+                <div class="step"><span class="circle done"><i class="fas fa-check"></i></span> Packed</div>
+                <div class="step"><span class="circle active"><i class="fas fa-truck"></i></span> In transit</div>
+                <div class="step"><span class="circle"><i class="fas fa-home"></i></span> Delivered</div>
+            </div>
+            <div class="order-details">
+                <div class="detail-item"><strong>Estimated delivery</strong> 18 August 2026</div>
+                <div class="detail-item"><strong>Shipping carrier</strong> Courier Guy</div>
+                <div class="detail-item"><strong>Tracking number</strong> CG-9876-5432</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="account-section">
+        <h2><i class="fas fa-user-circle" style="color:#c1663d; margin-right:8px;"></i> My Account</h2>
+        <div class="account-grid">
+            <div class="account-card"><i class="fas fa-shopping-bag"></i><h4>Order history</h4><p>View all your past orders</p></div>
+            <div class="account-card"><i class="fas fa-heart"></i><h4>Wishlist</h4><p>Items you've saved</p></div>
+            <div class="account-card"><i class="fas fa-address-card"></i><h4>Address book</h4><p>Manage shipping addresses</p></div>
+            <div class="account-card"><i class="fas fa-credit-card"></i><h4>Payment methods</h4><p>Saved cards &amp; options</p></div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div><i class="fas fa-leaf" style="color:#c1663d;"></i> Kaya Home &amp; Living · 44 Bree St, Johannesburg</div>
+        <div class="social">
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-pinterest"></i>
+            <i class="fab fa-facebook"></i>
+        </div>
+        <div><span style="margin-right:1rem;">NPO: 2024/123456/08</span> © 2026</div>
+    </div>
+</div>
+<script>
+    function toggleMenu() {
+        const nav = document.getElementById('navLinks');
+        nav.classList.toggle('active');
+    }
+
+    // Rest of your existing JS (addToCart, showToast, etc.)
+</script>
+</body>
+</html>

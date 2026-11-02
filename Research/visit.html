@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Kaya Home & Living · Visit Us</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="external.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #f9f6f1; font-family: 'Inter', sans-serif; color: #2b2b2b; padding: 1.5rem; line-height: 1.5; }
+        .container { max-width: 1300px; margin: 0 auto; }
+
+        .nav-bar {
+            display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+            background: white; border-radius: 60px; padding: 0.6rem 1.8rem; margin-bottom: 2rem;
+            border: 1px solid #efe6db;
+        }
+        .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; }
+        .nav-logo i { color: #c1663d; margin-right: 6px; }
+        .nav-links { display: flex; gap: 1.2rem; font-weight: 500; font-size: 0.9rem; }
+        .nav-links a { text-decoration: none; color: #2b2b2b; padding: 0.2rem 0; border-bottom: 2px solid transparent; }
+        .nav-links a.active { border-bottom-color: #c1663d; }
+        .nav-links a:hover { border-bottom-color: #c1663d; }
+        .nav-icons { display: flex; gap: 1rem; font-size: 1.1rem; }
+        .badge-cart { background: #c1663d; color: white; font-size: 0.6rem; border-radius: 40px; padding: 0.1rem 0.5rem; margin-left: -0.2rem; vertical-align: top; }
+
+        .breadcrumb { font-size: 0.85rem; color: #5a4d44; margin-bottom: 1.5rem; }
+        .breadcrumb a { color: #5a4d44; text-decoration: none; }
+        .breadcrumb a:hover { color: #c1663d; }
+        .breadcrumb span { margin: 0 0.4rem; }
+
+        .page-header { margin-bottom: 2rem; }
+        .page-header h1 { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700; }
+        .page-header p { color: #5a4d44; }
+
+        .visit-card { background: #fcf8f3; border-radius: 32px; padding: 2rem; border: 1px solid #e8ddd2; display: flex; flex-wrap: wrap; gap: 2.5rem; }
+        .visit-info { flex: 2 1 300px; }
+        .visit-info h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 600; margin-bottom: 1rem; }
+        .visit-info p { margin: 0.6rem 0; display: flex; align-items: center; gap: 0.8rem; font-size: 1rem; }
+        .visit-info p i { color: #c1663d; width: 24px; font-size: 1.1rem; }
+        .visit-info .hero-btn { background: #c1663d; border: none; color: white; padding: 0.6rem 2.5rem; border-radius: 60px; font-weight: 600; font-size: 0.95rem; display: inline-block; cursor: default; margin-top: 1rem; }
+        .visit-info .hero-btn i { margin-right: 8px; }
+        .visit-map { flex: 1 1 250px; background: #e8ddd2; border-radius: 28px; height: 280px; display: flex; align-items: center; justify-content: center; color: #a08472; font-size: 3rem; }
+
+        .featured-products { margin-top: 2.5rem; }
+        .featured-products h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 600; margin-bottom: 1.2rem; border-bottom: 3px solid #c1663d; padding-bottom: 0.3rem; display: inline-block; }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.8rem; margin-top: 1rem; }
+        .product-card { background: white; border-radius: 24px; padding: 0.8rem; border: 1px solid #eee6dd; text-align: center; transition: 0.15s; }
+        .product-card:hover { border-color: #c1663d60; }
+        .product-card .img { background: #f0e7df; border-radius: 18px; height: 150px; display: flex; align-items: center; justify-content: center; color: #a08472; font-size: 2.4rem; margin-bottom: 0.6rem; }
+        .product-card h4 { font-size: 1rem; font-weight: 600; }
+        .product-card .price { font-weight: 700; color: #c1663d; font-size: 1.1rem; margin-top: 0.2rem; }
+        .product-card .btn-quick { background: #c1663d10; border: 1px solid #c1663d30; border-radius: 40px; padding: 0.2rem 1.4rem; font-size: 0.75rem; font-weight: 600; color: #c1663d; margin-top: 0.6rem; display: inline-block; cursor: default; }
+
+        .footer { margin-top: 3rem; padding-top: 1.8rem; border-top: 1px solid #e2d6cb; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #5a4d44; }
+        .footer .social i { font-size: 1.2rem; margin-left: 1rem; color: #5a4d44; cursor: default; }
+        .footer .social i:hover { color: #c1663d; }
+
+        @media (max-width: 700px) { .nav-links { display: none; } .visit-card { flex-direction: column; } .visit-map { height: 200px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+   <div class="nav-bar">
+    <div class="nav-logo"><i class="fas fa-leaf"></i> Kaya</div>
+    
+    <!-- Hamburger Button for Mobile -->
+    <div class="hamburger" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <div class="nav-links" id="navLinks">
+        <a href="index.html" class="active">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="about.html">About</a>
+        <a href="visit.html">Visit</a>
+        <a href="journal.html">Journal</a>
+        <a href="track.html">Track</a>
+         <a href="enquiry.html">Enquiry</a>
+    </div>
+    <div class="nav-icons">
+        <i class="fas fa-search" style="cursor:pointer;"></i>
+        <i class="fas fa-user" style="cursor:pointer;"></i>
+        <a href="cart.html"><i class="fas fa-shopping-bag"></i></a> <span class="badge-cart">0</span>
+    </div>
+</div>
+
+    <div class="breadcrumb">
+        <a href="index.html">Home</a> <span>/</span>
+        <span style="color: #2b2b2b; font-weight: 500;">Visit Us</span>
+    </div>
+
+    <div class="page-header">
+        <h1>Visit our store</h1>
+        <p>Come see our collection in person — we'd love to meet you.</p>
+    </div>
+
+   <div class="visit-card">
+    <div class="visit-info">
+        <h2>Kaya Home & Living</h2>
+        <p><i class="fas fa-store"></i> 44 Bree Street, Johannesburg CBD</p>
+        <p><i class="fas fa-clock"></i> Mon–Sat: 9:00 – 18:00 · Sun: 10:00 – 15:00</p>
+        <p><i class="fas fa-phone"></i> 011 234 5678</p>
+        <p><i class="fas fa-envelope"></i> hello@kayahome.co.za</p>
+        <p><i class="fas fa-parking"></i> Free parking available on-site</p>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=44+Bree+Street+Johannesburg" target="_blank" rel="noopener noreferrer" class="hero-btn">
+            <i class="fas fa-directions"></i> Get directions
+        </a> 
+    </div>
+    
+    <div class="visit-map" style="overflow: hidden; border-radius: 28px;">
+        <!-- Standard Google Maps Embed -->
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3580.754967156317!2d28.03988531502789!3d-26.20410298346204!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e950ea6d2b9d49b%3A0x6b8c4e5f6a7b8c9d!2s44%20Bree%20St%2C%20Johannesburg%2C%200001!5e0!3m2!1sen!2sza!4v1620000000000!5m2!1sen!2sza" 
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy">
+        </iframe>
+    </div>
+</div>
+    </div>
+
+
+    <div class="footer">
+        <div><i class="fas fa-leaf" style="color:#c1663d;"></i> Kaya Home &amp; Living · 44 Bree St, Johannesburg</div>
+        <div class="social">
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-pinterest"></i>
+            <i class="fab fa-facebook"></i>
+        </div>
+        <div><span style="margin-right:1rem;">NPO: 2024/123456/08</span> © 2026</div>
+    </div>
+</div>
+<script>
+    function toggleMenu() {
+        const nav = document.getElementById('navLinks');
+        nav.classList.toggle('active');
+    }
+
+    // Rest of your existing JS (addToCart, showToast, etc.)
+</script>
+</body>
+</html>

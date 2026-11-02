@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Enquire about our products, services, or volunteering opportunities at Kaya Home & Living.">
+    <title>Kaya Home & Living · Enquiry</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="external.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #f9f6f1; font-family: 'Inter', sans-serif; color: #2b2b2b; padding: 1.5rem; line-height: 1.5; }
+        .container { max-width: 1300px; margin: 0 auto; }
+
+        .nav-bar {
+            display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+            background: white; border-radius: 60px; padding: 0.6rem 1.8rem; margin-bottom: 2rem;
+            border: 1px solid #efe6db; position: relative;
+        }
+        .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; }
+        .nav-logo i { color: #c1663d; margin-right: 6px; }
+        .nav-links { display: flex; gap: 1.2rem; font-weight: 500; font-size: 0.9rem; flex-wrap: wrap; }
+        .nav-links a { text-decoration: none; color: #2b2b2b; padding: 0.2rem 0; border-bottom: 2px solid transparent; transition: 0.15s; }
+        .nav-links a.active { border-bottom-color: #c1663d; }
+        .nav-links a:hover { border-bottom-color: #c1663d; }
+        .nav-icons { display: flex; gap: 1rem; font-size: 1.1rem; align-items: center; }
+        .nav-icons a { color: #2b2b2b; text-decoration: none; }
+        .badge-cart { background: #c1663d; color: white; font-size: 0.6rem; border-radius: 40px; padding: 0.1rem 0.5rem; margin-left: -0.2rem; vertical-align: top; }
+        .hamburger { display: none; font-size: 1.3rem; color: #c1663d; cursor: pointer; }
+
+        .toast-message {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: #2b2b2b; color: white; padding: 1rem 2rem;
+            border-radius: 60px; font-weight: 500; z-index: 1000;
+            opacity: 0; transition: opacity 0.3s ease; pointer-events: none;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+        .toast-message.show { opacity: 1; }
+
+        .breadcrumb { font-size: 0.85rem; color: #5a4d44; margin-bottom: 1.5rem; }
+        .breadcrumb a { color: #5a4d44; text-decoration: none; }
+        .breadcrumb a:hover { color: #c1663d; }
+        .breadcrumb span { margin: 0 0.4rem; }
+
+        .page-header { margin-bottom: 2rem; text-align: center; }
+        .page-header h1 { font-family: 'Playfair Display', serif; font-size: 2.6rem; font-weight: 700; margin-bottom: 0.3rem; }
+        .page-header p { color: #5a4d44; font-size: 1.05rem; max-width: 650px; margin: 0 auto; }
+
+        .enquiry-layout { display: flex; flex-wrap: wrap; gap: 2rem; margin-bottom: 2rem; }
+        .enquiry-card {
+            background: white; border: 1px solid #efe6db; border-radius: 32px;
+            padding: 2rem; box-shadow: 0 8px 24px rgba(0,0,0,0.03);
+        }
+        .enquiry-form-wrap { flex: 2 1 540px; }
+        .enquiry-info { flex: 1 1 280px; background: #fcf8f3; }
+
+        .form-group { margin-bottom: 1.2rem; }
+        .form-group label { display: block; font-weight: 500; font-size: 0.9rem; margin-bottom: 0.35rem; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 0.8rem 1rem; border-radius: 16px; border: 1px solid #dacfc4;
+            background: #fcf8f3; font-family: 'Inter', sans-serif; font-size: 0.95rem; transition: 0.15s;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: #c1663d; outline: none; background: white;
+        }
+        .form-group textarea { min-height: 140px; resize: vertical; }
+        .error-msg { color: #d9534f; font-size: 0.8rem; display: none; margin-top: 0.25rem; }
+
+        .submit-btn {
+            background: #c1663d; color: white; border: none; padding: 0.8rem 2.5rem;
+            border-radius: 60px; font-weight: 700; font-size: 1rem; cursor: pointer;
+            margin-top: 0.5rem; transition: 0.15s; width: 100%;
+        }
+        .submit-btn:hover { background: #a8542e; transform: scale(1.02); }
+
+        #enquiryResult {
+            display: none; margin-top: 1.5rem; padding: 1.5rem; border-radius: 20px;
+            background: #e5f0e5; color: #1f5a2a; border: 1px solid #c3e6c3;
+        }
+        #enquiryResult h3 { margin-bottom: 0.4rem; }
+
+        .info-block { margin-bottom: 1.6rem; }
+        .info-block h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.7rem; }
+        .info-block p, .info-block li { color: #5a4d44; font-size: 0.95rem; line-height: 1.7; }
+        .info-block ul { list-style: none; margin-top: 0.8rem; }
+        .info-block li { display: flex; align-items: flex-start; gap: 0.6rem; margin-bottom: 0.5rem; }
+        .info-block li i { color: #c1663d; margin-top: 0.25rem; }
+
+        .footer { margin-top: 3rem; padding-top: 1.8rem; border-top: 1px solid #e2d6cb; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #5a4d44; }
+        .footer .social i { font-size: 1.2rem; margin-left: 1rem; color: #5a4d44; cursor: pointer; transition: 0.15s; }
+        .footer .social i:hover { color: #c1663d; transform: scale(1.2); }
+
+        @media (max-width: 700px) {
+            .nav-links { display: none; }
+            .hamburger { display: block; }
+            .nav-links.active { display: flex; flex-direction: column; width: 100%; margin-top: 0.8rem; }
+            .page-header h1 { font-size: 2.1rem; }
+            .enquiry-card { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div id="toast" class="toast-message"></div>
+
+    <div class="nav-bar">
+        <div class="nav-logo"><i class="fas fa-leaf"></i> Kaya</div>
+        <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="about.html">About</a>
+            <a href="visit.html">Visit</a>
+            <a href="journal.html">Journal</a>
+            <a href="track.html">Track</a>
+            <a href="enquiry.html" class="active">Enquiry</a>
+        </div>
+
+        <div class="nav-icons">
+            <a href="cart.html"><i class="fas fa-shopping-bag"></i></a>
+            <span class="badge-cart">0</span>
+        </div>
+    </div>
+
+    <div class="breadcrumb">
+        <a href="index.html">Home</a> <span>/</span>
+        <span style="color: #2b2b2b; font-weight: 500;">Enquiry</span>
+    </div>
+
+    <div class="page-header">
+        <h1>Make an Enquiry</h1>
+        <p>Ask about our products, pricing, custom orders, or how you can support the Kaya community.</p>
+    </div>
+
+    <div class="enquiry-layout">
+        <div class="enquiry-card enquiry-form-wrap">
+            <form id="enquiryForm" action="/submit-enquiry" method="POST">
+                <div class="form-group">
+                    <label for="enqName">Full Name *</label>
+                    <input type="text" id="enqName" name="name" required minlength="2" placeholder="Jane Doe">
+                    <div class="error-msg" id="nameError">Please enter your name.</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="enqEmail">Email Address *</label>
+                    <input type="email" id="enqEmail" name="email" required placeholder="jane@example.com">
+                    <div class="error-msg" id="emailError">Please enter a valid email address.</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="enqPhone">Phone Number</label>
+                    <input type="tel" id="enqPhone" name="phone" pattern="[0-9]{10}" placeholder="0123456789" title="10 digit phone number">
+                </div>
+
+                <div class="form-group">
+                    <label for="enqType">Type of Enquiry *</label>
+                    <select id="enqType" name="type" required>
+                        <option value="">Select an option...</option>
+                        <option value="product">Product Availability & Pricing</option>
+                        <option value="volunteer">Volunteering</option>
+                        <option value="sponsor">Sponsorship</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="enqMessage">Message *</label>
+                    <textarea id="enqMessage" name="message" required minlength="10" placeholder="Tell us what you'd like to know..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> Submit Enquiry</button>
+            </form>
+
+            <div id="enquiryResult">
+                <h3><i class="fas fa-check-circle"></i> Thank you!</h3>
+                <p id="resultMessage"></p>
+            </div>
+        </div>
+
+        <aside class="enquiry-card enquiry-info">
+            <div class="info-block">
+                <h3>Contact details</h3>
+                <p>We’d love to hear from you and answer any questions about our pieces, orders, or community initiatives.</p>
+            </div>
+
+            <div class="info-block">
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i><span>44 Bree Street, Johannesburg, South Africa</span></li>
+                    <li><i class="fas fa-phone"></i><span>+27 11 456 7890</span></li>
+                    <li><i class="fas fa-envelope"></i><span>hello@kayahome.co.za</span></li>
+                </ul>
+            </div>
+
+            <div class="info-block">
+                <h3>What to expect</h3>
+                <p>We usually respond within 24 hours on weekdays. For product requests, we’ll share availability and pricing details by email.</p>
+            </div>
+        </aside>
+    </div>
+
+    <div class="footer">
+        <div><i class="fas fa-leaf" style="color:#c1663d;"></i> Kaya Home &amp; Living · 44 Bree St, Johannesburg</div>
+        <div class="social">
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-pinterest"></i>
+            <i class="fab fa-facebook"></i>
+        </div>
+        <div><span style="margin-right:1rem;">NPO: 2024/123456/08</span> © 2026</div>
+    </div>
+</div>
+
+<script src="scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Kaya Home & Living · Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   <link rel="stylesheet" href="external.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #f9f6f1; font-family: 'Inter', sans-serif; color: #2b2b2b; padding: 1.5rem; line-height: 1.5; }
+        .container { max-width: 1300px; margin: 0 auto; }
+
+        .nav-bar {
+            display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+            background: white; border-radius: 60px; padding: 0.6rem 1.8rem; margin-bottom: 2rem;
+            border: 1px solid #efe6db;
+        }
+        .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; }
+        .nav-logo i { color: #c1663d; margin-right: 6px; }
+        .nav-links { display: flex; gap: 1.2rem; font-weight: 500; font-size: 0.9rem; flex-wrap: wrap; }
+        .nav-links a { text-decoration: none; color: #2b2b2b; padding: 0.2rem 0; border-bottom: 2px solid transparent; transition: 0.15s; }
+        .nav-links a.active { border-bottom-color: #c1663d; }
+        .nav-links a:hover { border-bottom-color: #c1663d; }
+        .nav-icons { display: flex; gap: 1rem; font-size: 1.1rem; align-items: center; }
+        .nav-icons a { color: #2b2b2b; text-decoration: none; }
+        .badge-cart { background: #c1663d; color: white; font-size: 0.6rem; border-radius: 40px; padding: 0.1rem 0.5rem; margin-left: -0.2rem; vertical-align: top; }
+
+        .hero {
+            background: #fcf8f3; border-radius: 36px; padding: 2.5rem 3rem;
+            display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+            margin-bottom: 2rem; border: 1px solid #e8ddd2;
+        }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 700; line-height: 1.2; }
+        .hero p { max-width: 450px; color: #5a4d44; margin: 0.8rem 0 1.5rem; font-size: 1.1rem; }
+        .hero-btn { background: #c1663d; border: none; color: white; padding: 0.7rem 2.8rem; border-radius: 60px; font-weight: 600; font-size: 1rem; display: inline-block; cursor: pointer; transition: 0.15s; text-decoration: none; }
+        .hero-btn:hover { background: #a8542e; transform: translateY(-2px); }
+        .hero-btn i { margin-right: 8px; }
+        .hero-image { background: #e8ddd2; border-radius: 28px; width: 240px; height: 160px; display: flex; align-items: center; justify-content: center; color: #a08472; font-size: 3.5rem; overflow: hidden; }
+        .hero-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 28px; }
+
+        .pills { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
+        .pills span { background: #f0e7df; padding: 0.5rem 1.6rem; border-radius: 40px; font-weight: 500; font-size: 0.9rem; cursor: pointer; border: 1px solid transparent; transition: 0.15s; }
+        .pills span:hover { border-color: #c1663d40; background: #f5ede6; transform: translateY(-2px); }
+        .pills span i { color: #c1663d; margin-right: 6px; }
+
+        .section-header { display: flex; justify-content: space-between; align-items: baseline; margin: 1.5rem 0 0.8rem; flex-wrap: wrap; gap: 0.5rem; }
+        .section-header h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 600; border-bottom: 3px solid #c1663d; padding-bottom: 0.2rem; display: inline-block; }
+        .section-header a { color: #5a4d44; font-weight: 500; font-size: 0.9rem; text-decoration: none; transition: 0.15s; }
+        .section-header a:hover { color: #c1663d; }
+
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1.8rem; margin: 1rem 0 2rem; }
+        .product-card { background: white; border-radius: 24px; padding: 0.8rem; border: 1px solid #eee6dd; text-align: center; transition: 0.2s; cursor: default; }
+        .product-card:hover { border-color: #c1663d60; box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-4px); }
+        .product-card .img { background: #f0e7df; border-radius: 18px; height: 170px; display: flex; align-items: center; justify-content: center; color: #a08472; font-size: 2.8rem; margin-bottom: 0.6rem; overflow: hidden; }
+        .product-card .img img { width: 100%; height: 100%; object-fit: cover; border-radius: 18px; }
+        .product-card h4 { font-size: 1rem; font-weight: 600; margin-top: 0.2rem; }
+        .product-card .price { font-weight: 700; color: #c1663d; font-size: 1.1rem; margin-top: 0.2rem; }
+        .product-card .btn-quick { background: #c1663d10; border: 1px solid #c1663d30; border-radius: 40px; padding: 0.25rem 1.6rem; font-size: 0.75rem; font-weight: 600; color: #c1663d; margin-top: 0.6rem; display: inline-block; cursor: pointer; transition: 0.15s; }
+        .product-card .btn-quick:hover { background: #c1663d20; transform: scale(1.05); }
+
+        .toast-message {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: #2b2b2b; color: white; padding: 1rem 2rem;
+            border-radius: 60px; font-weight: 500; z-index: 1000;
+            opacity: 0; transition: opacity 0.3s ease; pointer-events: none;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+        .toast-message.show { opacity: 1; }
+
+        .story-block {
+            background: #fcf8f3; border-radius: 32px; padding: 2rem 2.5rem;
+            margin: 2rem 0 1.5rem; border: 1px solid #e8ddd2;
+            display: flex; flex-wrap: wrap; gap: 2rem; align-items: center;
+        }
+        .story-block .quote { flex: 2; font-size: 1.1rem; font-style: italic; color: #3d342e; }
+        .story-block .quote i { color: #c1663d; font-size: 1.8rem; margin-right: 6px; }
+        .story-block .quote-author { font-style: normal; font-weight: 600; margin-top: 0.4rem; color: #2b2b2b; }
+        .story-block .story-img { background: #e8ddd2; border-radius: 28px; width: 140px; height: 100px; display: flex; align-items: center; justify-content: center; color: #a08472; font-size: 2.2rem; flex-shrink: 0; overflow: hidden; }
+        .story-block .story-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 28px; }
+
+        .newsletter { background: #2b2b2b; border-radius: 32px; padding: 1.8rem 2.5rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem; }
+        .newsletter h3 { color: white; font-family: 'Playfair Display', serif; font-weight: 600; font-size: 1.4rem; }
+        .newsletter h3 i { color: #c1663d; margin-right: 8px; }
+        .newsletter p { color: #ccc; font-size: 0.9rem; }
+        .newsletter .input-group { display: flex; flex-wrap: wrap; gap: 0.6rem; flex: 1 1 300px; }
+        .newsletter .input-group input { flex: 2; padding: 0.6rem 1.2rem; border-radius: 60px; border: none; background: white; font-family: 'Inter', sans-serif; min-width: 160px; }
+        .newsletter .input-group button { background: #c1663d; border: none; color: white; padding: 0.6rem 2rem; border-radius: 60px; font-weight: 600; cursor: pointer; transition: 0.15s; }
+        .newsletter .input-group button:hover { background: #a8542e; transform: scale(1.02); }
+
+        .footer { margin-top: 3rem; padding-top: 1.8rem; border-top: 1px solid #e2d6cb; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #5a4d44; }
+        .footer .social i { font-size: 1.2rem; margin-left: 1rem; color: #5a4d44; cursor: pointer; transition: 0.15s; }
+        .footer .social i:hover { color: #c1663d; transform: scale(1.2); }
+
+        @media (max-width: 700px) { .nav-links { display: none; } .hero { flex-direction: column; align-items: start; padding: 1.5rem; } .hero h1 { font-size: 2rem; } .hero-image { width: 100%; height: 120px; } .story-block { flex-direction: column; text-align: center; } .newsletter { flex-direction: column; align-items: stretch; } .card-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Toast Notification -->
+    <div id="toast" class="toast-message"></div>
+
+    <!-- Navigation -->
+   <div class="nav-bar">
+    <div class="nav-logo"><i class="fas fa-leaf"></i> Kaya</div>
+    
+    <!-- Hamburger Button for Mobile -->
+    <div class="hamburger" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <div class="nav-links" id="navLinks">
+        <a href="index.html" class="active">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="about.html">About</a>
+        <a href="visit.html">Visit</a>
+        <a href="journal.html">Journal</a>
+        <a href="track.html">Track</a>
+         <a href="enquiry.html">Enquiry</a>
+    </div>
+    <div class="nav-icons">
+        <i class="fas fa-search" style="cursor:pointer;"></i>
+        <i class="fas fa-user" style="cursor:pointer;"></i>
+        <a href="cart.html"><i class="fas fa-shopping-bag"></i></a> <span class="badge-cart">0</span>
+    </div>
+</div>
+
+    <!-- Hero -->
+    <div class="hero">
+        <div>
+            <h1>Beautiful homeware,<br>made local.</h1>
+            <p>Handcrafted textiles, decor &amp; more — supporting South African artisans.</p>
+            <a href="shop.html" class="hero-btn"><i class="fas fa-store"></i> Shop new arrivals</a>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?w=400&h=300&fit=crop" alt="Home decor">
+        </div>
+    </div>
+
+    <!-- Category Pills -->
+    <div class="pills">
+        <span onclick="filterCategory('Textiles')"><i class="fas fa-rug"></i> Textiles</span>
+        <span onclick="filterCategory('Lighting')"><i class="fas fa-lamp"></i> Lighting</span>
+        <span onclick="filterCategory('Tableware')"><i class="fas fa-mug-saucer"></i> Tableware</span>
+        <span onclick="filterCategory('Baskets')"><i class="fas fa-basket"></i> Baskets</span>
+        <span onclick="filterCategory('Planters')"><i class="fas fa-plant"></i> Planters</span>
+        <span onclick="filterCategory('Cushions')"><i class="fas fa-couch"></i> Cushions</span>
+    </div>
+
+    <!-- Featured Products -->
+    <div class="section-header">
+        <h2>New in</h2>
+        <a href="shop.html">View all <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="card-grid" id="productGrid">
+        <div class="product-card" data-category="Textiles">
+            <div class="img"><img src="Images/rug.jpg.avif" alt="Rug"></div>
+            <h4>Handwoven rug</h4>
+            <div class="price">R1,250</div>
+            <button class="btn-quick" onclick="addToCart('Handwoven rug', 1250)">Quick add</button>
+        </div>
+        <div class="product-card" data-category="Lighting">
+            <div class="img"><img src="Images/Terracotta lamp.jpg" alt="Lamp"></div>
+            <h4>Terracotta lamp</h4>
+            <div class="price">R890</div>
+            <button class="btn-quick" onclick="addToCart('Terracotta lamp', 890)">Quick add</button>
+        </div>
+        <div class="product-card" data-category="Baskets">
+            <div class="img"><img src="Images/palm basket.jpg" alt="Basket"></div>
+            <h4>Palm basket</h4>
+            <div class="price">R540</div>
+            <button class="btn-quick" onclick="addToCart('Palm basket', 540)">Quick add</button>
+        </div>
+        <div class="product-card" data-category="Tableware">
+            <div class="img"><img src="Images/clay mug set.jpg" alt="Mugs"></div>
+            <h4>Clay mug set</h4>
+            <div class="price">R990</div>
+            <button class="btn-quick" onclick="addToCart('Clay mug set', 320)">Quick add</button>
+        </div>
+        <div class="product-card" data-category="Planters">
+            <div class="img"><img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=300&h=200&fit=crop" alt="Planter"></div>
+            <h4>Planter pot</h4>
+            <div class="price">R410</div>
+            <button class="btn-quick" onclick="addToCart('Planter pot', 410)">Quick add</button>
+        </div>
+        <div class="product-card" data-category="Cushions">
+            <div class="img"><img src="Images/Throw cushion.jpg" alt="Cushion"></div>
+            <h4>Throw cushion</h4>
+            <div class="price">R670</div>
+            <button class="btn-quick" onclick="addToCart('Throw cushion', 670)">Quick add</button>
+        </div>
+    </div>
+
+    <!-- Story Block -->
+    <div class="story-block">
+        <div class="quote">
+            <i class="fas fa-quote-left"></i> 
+            Every piece in our store has a story — from the hands that made it to the home it will live in. 
+            <div class="quote-author">— Thandi, founder</div>
+        </div>
+        <div class="story-img">
+            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=200&h=150&fit=crop" alt="Artisan">
+        </div>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="newsletter">
+        <div>
+            <h3><i class="fas fa-envelope"></i> Stay inspired</h3>
+            <p>Get styling tips, artisan stories &amp; early access.</p>
+        </div>
+        <div class="input-group">
+            <input type="email" id="newsletterEmail" placeholder="Your email address" value="hello@kaya.co.za">
+            <button onclick="subscribeNewsletter()"><i class="fas fa-paper-plane"></i> Sign up</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div><i class="fas fa-leaf" style="color:#c1663d;"></i> Kaya Home &amp; Living · 44 Bree St, Johannesburg</div>
+        <div class="social">
+            <i class="fab fa-instagram" onclick="showToast('Follow us on Instagram!')"></i>
+            <i class="fab fa-pinterest" onclick="showToast('Follow us on Pinterest!')"></i>
+            <i class="fab fa-facebook" onclick="showToast('Follow us on Facebook!')"></i>
+        </div>
+        <div><span style="margin-right:1rem;">NPO: 2024/123456/08</span> © 2026</div>
+    </div>
+</div>
+
+<script>
+    // Toast notification
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    // Add to cart function
+    function addToCart(product, price) {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const existing = cart.find(item => item.product === product);
+        if (existing) {
+            existing.quantity += 1;
+        } else {
+            cart.push({ product, price, quantity: 1 });
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartBadge();
+        showToast(`✓ ${product} added to cart (R${price})`);
+    }
+
+    // Update cart badge
+    function updateCartBadge() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+        const badges = document.querySelectorAll('.badge-cart');
+        badges.forEach(badge => badge.textContent = total);
+    }
+
+    // Subscribe to newsletter
+    function subscribeNewsletter() {
+        const email = document.getElementById('newsletterEmail').value;
+        if (email && email.includes('@')) {
+            showToast(`✓ Subscribed with ${email}!`);
+        } else {
+            showToast('⚠ Please enter a valid email address.');
+        }
+    }
+
+    // Filter products by category
+    function filterCategory(category) {
+        const cards = document.querySelectorAll('.product-card');
+        let count = 0;
+        cards.forEach(card => {
+            if (card.dataset.category === category) {
+                card.style.display = 'block';
+                count++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+        showToast(`Showing ${count} ${category} products`);
+        // Reset after 5 seconds
+        setTimeout(() => {
+            cards.forEach(card => card.style.display = 'block');
+        }, 4000);
+    }
+
+    // Initialize cart badge on load
+    document.addEventListener('DOMContentLoaded', updateCartBadge);
+</script>
+<script>
+    function toggleMenu() {
+        const nav = document.getElementById('navLinks');
+        nav.classList.toggle('active');
+    }
+
+    // Rest of your existing JS (addToCart, showToast, etc.)
+</script>
+</body>
+</html>
